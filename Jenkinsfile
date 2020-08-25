@@ -2,21 +2,13 @@ pipeline {
     agent none
     stages {
         stage('Build') {
-            agent {
-                
-                image 'python:2-alpine'
-                
-            }
+            agent none 
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
             }
         }
         stage('Test') {
-            agent {
-                
-                image 'qnib/pytest'
-                
-            }
+            agent none 
             steps {
                 sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
             }
@@ -27,11 +19,7 @@ pipeline {
             }
         }
         stage('Deliver') {
-            agent {
-                
-                image 'cdrx/pyinstaller-linux:python2'
-                
-            }
+            agent none
             steps {
                 sh 'pyinstaller --onefile sources/add2vals.py'
             }
