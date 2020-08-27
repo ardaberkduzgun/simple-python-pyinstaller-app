@@ -23,7 +23,7 @@ pipeline {
         }
     
         stage('Build') { 
-            //agent { docker { image 'python:2-alpine' } }
+            agent { docker { image '2.7.16' } }
             steps {
                 sh 'python --version'
             }
