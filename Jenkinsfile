@@ -4,7 +4,7 @@ pipeline {
    
     environment{
         DOCKER_HOME = tool name: 'MyDocker', type: 'dockerTool'
-        //PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
+        PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
         test="testtesttest"
     }
          
@@ -18,12 +18,12 @@ pipeline {
         stage('SCM Checkot'){
             steps{
                 echo "Hello world!"
-                //git 'https://github.com/ardaberkduzgun/simple-python-pyinstaller-app'
+                git 'https://github.com/ardaberkduzgun/simple-python-pyinstaller-app'
             }
         }
     
         stage('Build') { 
-            agent { docker { image 'python:3.5.1' } }
+            agent { docker { image 'PYTHON_HOME' } }
             steps {
                 sh 'python --version'
             }
