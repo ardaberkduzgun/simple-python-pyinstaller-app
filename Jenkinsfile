@@ -14,6 +14,7 @@ pipeline {
                 echo "PATH = ${PATH}"
                 echo "Test variable is: ${test}"
             }
+        }
         stage('SCM Checkot'){
             steps{
                 echo "Hello world!"
