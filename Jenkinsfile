@@ -1,26 +1,42 @@
 pipeline {
     
     agent any
+    tools{
+        tool name: 'MyDocker', type: 'dockerTool'
+        tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
+    }
+    environment{
+        test="testtesttest"
+    }
          
     stages {
-        stage('Initialize')
-    {
-        def dockerHome = tool 'MyDocker' 
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
-        stage('Push to Docker Registry'){
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {                
-                pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
-            }            
-        }  
-        stage('Build') { 
-            agent {
-                agent { docker { image 'python:3.5.1' } }
+        stage('Initialize'){
+            steps{
+                echo "PATH = ${PATH}"
+                echo "Test variable is: ${test}"
             }
+        }
+        stage('SCM Checkot'){
+            steps{
+                echo "Hello world!"
+                git 'https://github.com/ardaberkduzgun/simple-python-pyinstaller-app'
+            }
+        }
+    
+        stage('Build') { 
+            agent { docker { image 'Python3' } }
             steps {
-                sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
-                stash(name: 'compiled-results', includes: 'sources/*.py*') 
+                sh 'python --version'
+            }
+        }
+        stage('Test'){
+            steps{
+                echo 'Test stage'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Deploy stage'
             }
         }
     }
