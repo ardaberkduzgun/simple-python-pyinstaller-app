@@ -1,8 +1,7 @@
 pipeline {
     
-    agent docker{
-         docker {
-              image 'python:3.5.1' } 
+    agent none{
+         
     stages {
         stage('Initialize')
     {
@@ -18,9 +17,7 @@ pipeline {
         }  
         stage('Build') { 
             agent {
-                docker {
-                    image 'python:2-alpine' 
-                }
+                agent { docker { image 'python:3.5.1' } }
             }
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
