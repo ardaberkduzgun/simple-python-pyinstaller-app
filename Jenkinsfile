@@ -2,8 +2,8 @@ pipeline {
     
     agent any
     tools{
-        tool name: 'MyDocker', type: 'dockerTool'
-        tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
+        docker 'myDocker'
+        python 'Python3'
     }
     environment{
         test="testtesttest"
