@@ -18,7 +18,7 @@ pipeline {
         stage('SCM Checkot'){
             steps{
                 echo "Hello world!"
-                git 'https://github.com/ardaberkduzgun/simple-python-pyinstaller-app'
+                //git 'https://github.com/ardaberkduzgun/simple-python-pyinstaller-app'
             }
         }
     
