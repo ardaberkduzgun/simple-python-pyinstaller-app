@@ -2,7 +2,7 @@ pipeline {
     
     agent any
     tools{
-        docker 'myDocker'
+        dockerTool 'myDocker'
         python 'Python3'
     }
     environment{
