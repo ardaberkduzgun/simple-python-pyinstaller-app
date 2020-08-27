@@ -1,18 +1,17 @@
 pipeline {
     
-    agent none{
+    agent any
          
     stages {
         stage('Initialize')
     {
-        def dockerHome = tool 'MyDocker'
-      
+        def dockerHome = tool 'MyDocker' 
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
-     stage('Push to Docker Registry'){
-        steps {
-            withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {                
-            pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
+        stage('Push to Docker Registry'){
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {                
+                pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
             }            
         }  
         stage('Build') { 
@@ -25,6 +24,5 @@ pipeline {
             }
         }
     }
-}
 }
 }
